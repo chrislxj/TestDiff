@@ -25,9 +25,9 @@
 ### BEGIN SECTION SETTINGS
 ###############################################################################
 
-ROOT:                        /BIGDATA2/sysu_lux_5/ExtData/HEMCO
+ROOT:                        /BIGDATA2/sysu_lux_1/ExtData/HEMCO
 SCENARIO:                    HIST
-METDIR:                      /BIGDATA2/sysu_lux_5/ExtData/GEOS_4x5/MERRA2
+METDIR:                      /BIGDATA2/sysu_lux_1/ExtData/GEOS_4x5/MERRA2
 Logfile:                     HEMCO.log
 DiagnFile:                   HEMCO_Diagn.rc
 DiagnPrefix:                 ./OutputDir/HEMCO_diagnostics
@@ -68,17 +68,17 @@ Warnings:                    1
     --> HTAP                   :       false    # 2008-2010
     --> GEIA_NH3               :       true     # 1990
     --> SEABIRD_NH3            :       true     # 1990
-    --> POET_EOH               :       false    # 1985
+    --> POET_EOH               :       true     # 1985
     --> TZOMPASOSA_C2H6        :       true     # 2010
     --> XIAO_C3H8              :       true     # 1985
     --> LIANG_BROMOCARB        :       true     # 2000
     --> ORDONEZ_IODOCARB       :       true     # 2000
-    --> AEIC                   :       true     # 2005
+    --> AEIC                   :       false     # 2005
     --> DECAYING_PLANTS        :       true     # 1985
     --> AFCID                  :       true     # 2015
 # ----- SHIP EMISSIONS ----------------------------------------
     --> SHIP                   :       true
-    --> CEDSv2_SHIP            :       true     # 1750-2017
+    --> CEDSv2_SHIP            :       true    # 1750-2017
     --> CEDS_GBDMAPS_SHIP      :       false    # 1970-2017
     --> CEDS_GBDMAPS_SHIP_byFuelType:  false    # 1970-2017
     --> HTAP_SHIP              :       false    # 2008-2010
@@ -94,12 +94,12 @@ Warnings:                    1
 #   Set SCENARIO (e.g., HIST, SSP585) above in SECTION SETTINGS
     --> CMIP6_SFC_BC           :       false    # 1750-2100
     --> CMIP6_SFC_LAND_ANTHRO  :       false    # 1850-2100
-    --> CMIP6_AIRCRAFT         :       false    # 1850-2100
+    --> CMIP6_AIRCRAFT         :       true    # 1850-2100
     --> CMIP6_SHIP             :       false    # 1850-2100
 # ----- BIOMASS BURNING EMISSIONS -----------------------------
     --> QFED2                  :       false    # 2000-2020
     --> GFAS                   :       false    # 2003-2021
-    --> BB4MIPS                :       false    # 1850-2100
+    --> BB4CMIP6               :       false     # 1850-2100
 # ----- OFFLINE EMISSIONS -------------------------------------
 # To use online emissions instead set the offline emissions to 'false' and the
 # corresponding HEMCO extension to 'on':
@@ -116,9 +116,9 @@ Warnings:                    1
 # any affected species.
 #--------------------------------------------------------------
     --> OFFLINE_DUST           :       true     # 1980-2021
-    --> OFFLINE_BIOGENICVOC    :       true     # 1980-2021
-    --> OFFLINE_SEASALT        :       true     # 1980-2021
-    --> OFFLINE_SOILNOX        :       true     # 1980-2021
+    --> OFFLINE_BIOGENICVOC    :       off      # 1980-2021
+    --> OFFLINE_SEASALT        :       off      # 1980-2021
+    --> OFFLINE_SOILNOX        :       off      # 1980-2021
 # ----- NON-EMISSIONS DATA ------------------------------------
     --> UVALBEDO               :       true     # 1985
     --> CCM_STRAT_Bry          :       true     # 2007
@@ -138,14 +138,14 @@ Warnings:                    1
 102     ParaNOx                : on    NO/NO2/O3/HNO3
     --> LUT data format        :       nc
     --> LUT source dir         :       $ROOT/PARANOX/v2015-02
-103     LightNOx               : off    NO
+103     LightNOx               : on    NO
     --> CDF table              :       $ROOT/LIGHTNOX/v2014-07/light_dist.ott2010.dat
-104     SoilNOx                : off   NO
+104     SoilNOx                : on    NO
     --> Use fertilizer NOx     :       true
 105     DustDead               : off   DST1/DST2/DST3/DST4
     --> Mass tuning factor     :       7.8533e-4
 106     DustGinoux             : off   DST1/DST2/DST3/DST4
-107     SeaSalt                : off   SALA/SALC/SALACL/SALCCL/SALAAL/SALCAL/BrSALA/BrSALC/MOPO/MOPI
+107     SeaSalt                : on    SALA/SALC/SALACL/SALCCL/SALAAL/SALCAL/BrSALA/BrSALC/MOPO/MOPI
     --> SALA lower radius      :       0.01
     --> SALA upper radius      :       0.5
     --> SALC lower radius      :       0.5
@@ -193,8 +193,9 @@ Warnings:                    1
 115     DustAlk                : off   DSTAL1/DSTAL2/DSTAL3/DSTAL4
 117     Volcano                : on    SO2
     --> Volcano_Source         :       AeroCom
-    --> Volcano_Table          :       $ROOT/VOLCANO/v2021-09/$YYYY/$MM/so2_volcanic_emissions_Carns.$YYYY$MM$DD.rc
-    --> Volcano_Climatology    :       $ROOT/VOLCANO/v2021-09/so2_volcanic_emissions_CARN_v202005.degassing_only.rc
+    --> Volcano_Table          :       $ROOT/VOLCANO/v2019-08/$YYYY/$MM/so2_volcanic_emissions_Carns.$YYYY$MM$DD.rc
+    --> Volcano_Climatology    :       false
+#    --> Volcano_Climatology    :       $ROOT/VOLCANO/v2021-09/so2_volcanic_emissions_CARN_v202005.degassing_only.rc
 120     Inorg_Iodine           : on    HOI/I2
     --> Emit HOI               :       true
     --> Emit I2                :       true
@@ -1822,10 +1823,10 @@ Warnings:                    1
 #
 #==============================================================================
 (((CMIP6_AIRCRAFT
-0 CMIP6_AIR_NO     $ROOT/CMIP6/v2021-01/$SCENARIO/$SCENARIO_$YYYY_AIR.47L.nc4    NO_air            1750-2100/1-12/1/0 C xyz kg/m2/s   NO    -        20 1
-0 CMIP6_AIR_CO     $ROOT/CMIP6/v2021-01/$SCENARIO/$SCENARIO_$YYYY_AIR.47L.nc4    CO_air            1750-2100/1-12/1/0 C xyz kg/m2/s   CO    -        20 1
+0 CMIP6_AIR_NO     /BIGDATA2/sysu_lux_1/ExtData/GCglobalemissions/AIR_CEDS/$SCENARIO/$SCENARIO_$YYYY_AIR.47L.nc4    NO_air            1750-2100/1-12/1/0 C xyz kg/m2/s   NO    -        20 1
+0 CMIP6_AIR_CO     /BIGDATA2/sysu_lux_1/ExtData/GCglobalemissions/AIR_CEDS/$SCENARIO/$SCENARIO_$YYYY_AIR.47L.nc4    CO_air            1750-2100/1-12/1/0 C xyz kg/m2/s   CO    -        20 1
 0 CMIP6_AIR_SOAP   -                                                                    -                 -                  - -   -         SOAP  280      20 1
-0 CMIP6_AIR_SO2    $ROOT/CMIP6/v2021-01/$SCENARIO/$SCENARIO_$YYYY_AIR.47L.nc4    SO2_air           1750-2100/1-12/1/0 C xyz kg/m2/s   SO2   -        20 1
+0 CMIP6_AIR_SO2    /BIGDATA2/sysu_lux_1/ExtData/GCglobalemissions/AIR_CEDS/$SCENARIO/$SCENARIO_$YYYY_AIR.47L.nc4    SO2_air           1750-2100/1-12/1/0 C xyz kg/m2/s   SO2   -        20 1
 0 CMIP6_AIR_SO4    -                                                                    -                 -                  - -   -         SO4   63       20 1
 0 CMIP6_AIR_ACET   -                                                                    -                 -                  - -   -         ACET  601      20 1
 0 CMIP6_AIR_ALD2   -                                                                    -                 -                  - -   -         ALD2  602      20 1
@@ -1836,10 +1837,10 @@ Warnings:                    1
 0 CMIP6_AIR_PRPE   -                                                                    -                 -                  - -   -         PRPE  607      20 1
 0 CMIP6_AIR_MACR   -                                                                    -                 -                  - -   -         MACR  608      20 1
 0 CMIP6_AIR_RCHO   -                                                                    -                 -                  - -   -         RCHO  609      20 1
-0 CMIP6_AIR_NH3    $ROOT/CMIP6/v2021-01/$SCENARIO/$SCENARIO_$YYYY_AIR.47L.nc4    NH3_air           1750-2100/1-12/1/0 C xyz kg/m2/s   NH3   -        20 1
+0 CMIP6_AIR_NH3    /BIGDATA2/sysu_lux_1/ExtData/GCglobalemissions/AIR_CEDS/$SCENARIO/$SCENARIO_$YYYY_AIR.47L.nc4    NH3_air           1750-2100/1-12/1/0 C xyz kg/m2/s   NH3   -        20 1
 # Assume all BC/OC is BCPI/OCPI
-0 CMIP6_AIR_BCPI   $ROOT/CMIP6/v2021-01/$SCENARIO/$SCENARIO_$YYYY_AIR.47L.nc4    BC_air            1750-2100/1-12/1/0 C xyz kg/m2/s   BCPI  -        20 1
-0 CMIP6_AIR_OCPI   $ROOT/CMIP6/v2021-01/$SCENARIO/$SCENARIO_$YYYY_AIR.47L.nc4    OC_air            1750-2100/1-12/1/0 C xyz kg/m2/s   OCPI  -        20 1
+0 CMIP6_AIR_BCPI   /BIGDATA2/sysu_lux_1/ExtData/GCglobalemissions/AIR_CEDS/$SCENARIO/$SCENARIO_$YYYY_AIR.47L.nc4    BC_air            1750-2100/1-12/1/0 C xyz kg/m2/s   BCPI  -        20 1
+0 CMIP6_AIR_OCPI   /BIGDATA2/sysu_lux_1/ExtData/GCglobalemissions/AIR_CEDS/$SCENARIO/$SCENARIO_$YYYY_AIR.47L.nc4    OC_air            1750-2100/1-12/1/0 C xyz kg/m2/s   OCPI  -        20 1
 
 )))CMIP6_AIRCRAFT
 
@@ -2414,7 +2415,7 @@ Warnings:                    1
 )))HTAP_SHIP
 
 (((CEDSv2_SHIP
-102 CEDS_NO_SHP $ROOT/CEDS/v2021-06/$YYYY/NO-em-anthro_CMIP_CEDS_$YYYY.nc NO_shp 1750-2010/1-12/1/0 C xy kg/m2/s NO 25 10 5
+102 CEDS_NO_SHP $ROOT/CEDS/v2021-06/$YYYY/NO-em-anthro_CMIP_CEDS_$YYYY.nc NO_shp 1750-2019/1-12/1/0 C xy kg/m2/s NO 25 10 5
 )))CEDSv2_SHIP
 
 (((CEDS_GBDMAPS_SHIP
@@ -2440,7 +2441,7 @@ Warnings:                    1
 )))HTAP_SHIP
 
 (((CEDSv2_SHIP
-0 CEDS_NO_SHP $ROOT/CEDS/v2021-06/$YYYY/NO-em-anthro_CMIP_CEDS_$YYYY.nc NO_shp 1750-2010/1-12/1/0 C xy kg/m2/s NO 25 10 5
+0 CEDS_NO_SHP $ROOT/CEDS/v2021-06/$YYYY/NO-em-anthro_CMIP_CEDS_$YYYY.nc NO_shp 1750-2019/1-12/1/0 C xy kg/m2/s NO 25 10 5
 )))CEDSv2_SHIP
 
 (((CEDS_GBDMAPS_SHIP
@@ -2461,14 +2462,14 @@ Warnings:                    1
 # ==> Now emit aircraft BC and OC into hydrophilic tracers BCPI and OCPI.
 #==============================================================================
 (((AEIC
-0 AEIC_NO   $ROOT/AEIC/v2015-01/AEIC.47L.gen.1x1.nc  NO2      2005/1-12/1/0 C xyz kg/m2/s NO   110/115    20 1
-0 AEIC_CO   $ROOT/AEIC/v2015-01/AEIC.47L.gen.1x1.nc  CO       2005/1-12/1/0 C xyz kg/m2/s CO   110        20 1
+0 AEIC_NO   /BIGDATA2/sysu_lux_1/ExtData/GCglobalemissions/myAEIC/AEIC.47L.gen.1x1.$YYYY.nc  NO2      1995-2017/1-12/1/0 C xyz kg/m2/s NO   110/115    20 1
+0 AEIC_CO   /BIGDATA2/sysu_lux_1/ExtData/GCglobalemissions/myAEIC/AEIC.47L.gen.1x1.$YYYY.nc  CO       1995-2017/1-12/1/0 C xyz kg/m2/s CO   110        20 1
 0 AEIC_SOAP -                                        -        -             - -   -       SOAP 110/280    20 1
-0 AEIC_SO2  $ROOT/AEIC/v2015-01/AEIC.47L.gen.1x1.nc  FUELBURN 2005/1-12/1/0 C xyz kg/m2/s SO2  111        20 1
+0 AEIC_SO2  /BIGDATA2/sysu_lux_1/ExtData/GCglobalemissions/myAEIC/AEIC.47L.gen.1x1.$YYYY.nc  FUELBURN 1995-2017/1-12/1/0 C xyz kg/m2/s SO2  111        20 1
 0 AEIC_SO4  -                                        -        -             - -   -       SO4  112        20 1
 0 AEIC_BCPI -                                        -        -             - -   -       BCPI 113        20 1
 0 AEIC_OCPI -                                        -        -             - -   -       OCPI 113        20 1
-0 AEIC_ACET $ROOT/AEIC/v2015-01/AEIC.47L.gen.1x1.nc  HC       2005/1-12/1/0 C xyz kg/m2/s ACET 114/101/40 20 1
+0 AEIC_ACET /BIGDATA2/sysu_lux_1/ExtData/GCglobalemissions/myAEIC/AEIC.47L.gen.1x1.$YYYY.nc  HC       1995-2017/1-12/1/0 C xyz kg/m2/s ACET 114/101/40 20 1
 0 AEIC_ALD2 -                                        -        -             - -   -       ALD2 114/102/41 20 1
 0 AEIC_ALK4 -                                        -        -             - -   -       ALK4 114/103/42 20 1
 0 AEIC_C2H6 -                                        -        -             - -   -       C2H6 114/104/45 20 1
@@ -2676,42 +2677,57 @@ Warnings:                    1
 #==============================================================================
 # --- BB4MIPs biomass burning ---
 #==============================================================================
-(((BB4MIPS
-# 75 is time-of-day scaling
-0 CMIP6_BB_CO      $ROOT/CMIP6/v2021-01/$SCENARIO/$SCENARIO_$YYYY.nc4 CO_bbn     1750-2100/1-12/1/0 C xyL=1:PBL kg/m2/s CO    75     5 3
-0 CMIP6_BB_SOAP    $ROOT/CMIP6/v2021-01/$SCENARIO/$SCENARIO_$YYYY.nc4 CO_bbn     1750-2100/1-12/1/0 C xyL=1:PBL kg/m2/s SOAP  75/281 5 3
-0 CMIP6_BB_NO      $ROOT/CMIP6/v2021-01/$SCENARIO/$SCENARIO_$YYYY.nc4 NO_bbn     1750-2100/1-12/1/0 C xyL=1:PBL kg/m2/s NO    75     5 3
-0 CMIP6_BB_BCPI    $ROOT/CMIP6/v2021-01/$SCENARIO/$SCENARIO_$YYYY.nc4 BC_bbn     1750-2100/1-12/1/0 C xyL=1:PBL kg/m2/s BCPI  70/75  5 3
-0 CMIP6_BB_BCPO    $ROOT/CMIP6/v2021-01/$SCENARIO/$SCENARIO_$YYYY.nc4 BC_bbn     1750-2100/1-12/1/0 C xyL=1:PBL kg/m2/s BCPO  71/75  5 3
-0 CMIP6_BB_OCPI    $ROOT/CMIP6/v2021-01/$SCENARIO/$SCENARIO_$YYYY.nc4 OC_bbn     1750-2100/1-12/1/0 C xyL=1:PBL kg/m2/s OCPI  72/75  5 3
-0 CMIP6_BB_OCPO    $ROOT/CMIP6/v2021-01/$SCENARIO/$SCENARIO_$YYYY.nc4 OC_bbn     1750-2100/1-12/1/0 C xyL=1:PBL kg/m2/s OCPO  73/75  5 3
-0 CMIP6_BB_SO2     $ROOT/CMIP6/v2021-01/$SCENARIO/$SCENARIO_$YYYY.nc4 SO2_bbn    1750-2100/1-12/1/0 C xyL=1:PBL kg/m2/s SO2   75     5 3
-0 CMIP6_BB_NH3     $ROOT/CMIP6/v2021-01/$SCENARIO/$SCENARIO_$YYYY.nc4 NH3_bbn    1750-2100/1-12/1/0 C xyL=1:PBL kg/m2/s NH3   75     5 3
-0 CMIP6_BB_ALD2    $ROOT/CMIP6/v2021-01/$SCENARIO/$SCENARIO_$YYYY.nc4 ALD2_bbn   1750-2100/1-12/1/0 C xyL=1:PBL kg/m2/s ALD2  75     5 3
-0 CMIP6_BB_ALK4    $ROOT/CMIP6/v2021-01/$SCENARIO/$SCENARIO_$YYYY.nc4 ALK4_bbn   1750-2100/1-12/1/0 C xyL=1:PBL kg/m2/s ALK4  75     5 3
-0 CMIP6_BB_PRPE    $ROOT/CMIP6/v2021-01/$SCENARIO/$SCENARIO_$YYYY.nc4 PRPE_bbn   1750-2100/1-12/1/0 C xyL=1:PBL kg/m2/s PRPE  75     5 3
-0 CMIP6_BB_C2H6    $ROOT/CMIP6/v2021-01/$SCENARIO/$SCENARIO_$YYYY.nc4 C2H6_bbn   1750-2100/1-12/1/0 C xyL=1:PBL kg/m2/s C2H6  75     5 3
-0 CMIP6_BB_C3H8    $ROOT/CMIP6/v2021-01/$SCENARIO/$SCENARIO_$YYYY.nc4 C3H8_bbn   1750-2100/1-12/1/0 C xyL=1:PBL kg/m2/s C3H8  75     5 3
-0 CMIP6_BB_CH2O    $ROOT/CMIP6/v2021-01/$SCENARIO/$SCENARIO_$YYYY.nc4 CH2O_bbn   1750-2100/1-12/1/0 C xyL=1:PBL kg/m2/s CH2O  75     5 3
-0 CMIP6_BB_C2H4    $ROOT/CMIP6/v2021-01/$SCENARIO/$SCENARIO_$YYYY.nc4 C2H4_bbn   1750-2100/1-12/1/0 C xyL=1:PBL kg/m2/s C2H4  75     5 3
-0 CMIP6_BB_ISOP    $ROOT/CMIP6/v2021-01/$SCENARIO/$SCENARIO_$YYYY.nc4 ISOP_bbn   1750-2100/1-12/1/0 C xyL=1:PBL kg/m2/s ISOP  75     5 3
-0 CMIP6_BB_DMS     $ROOT/CMIP6/v2021-01/$SCENARIO/$SCENARIO_$YYYY.nc4 DMS_bbn    1750-2100/1-12/1/0 C xyL=1:PBL kg/m2/s DMS   75     5 3
-0 CMIP6_BB_TOLU    $ROOT/CMIP6/v2021-01/$SCENARIO/$SCENARIO_$YYYY.nc4 TOLU_bbn   1750-2100/1-12/1/0 C xyL=1:PBL kg/m2/s TOLU  75     5 3
-0 CMIP6_BB_BENZ    $ROOT/CMIP6/v2021-01/$SCENARIO/$SCENARIO_$YYYY.nc4 BENZ_bbn   1750-2100/1-12/1/0 C xyL=1:PBL kg/m2/s BENZ  75     5 3
-0 CMIP6_BB_XYLE    $ROOT/CMIP6/v2021-01/$SCENARIO/$SCENARIO_$YYYY.nc4 XYLE_bbn   1750-2100/1-12/1/0 C xyL=1:PBL kg/m2/s XYLE  75     5 3
-0 CMIP6_BB_H2      $ROOT/CMIP6/v2021-01/$SCENARIO/$SCENARIO_$YYYY.nc4 H2_bbn     1750-2100/1-12/1/0 C xyL=1:PBL kg/m2/s H2    75     5 3
-0 CMIP6_BB_MTPA    $ROOT/CMIP6/v2021-01/$SCENARIO/$SCENARIO_$YYYY.nc4 MONOT_bbn  1750-2100/1-12/1/0 C xyL=1:PBL kg/m2/s MTPA  75     5 3
-#0 CMIP6_BB_MTPO    -                                              -          -                  - -             -   MTPO  75     5 3
-#0 CMIP6_BB_LIMO    -                                              -          -                  - -             -   LIMO  75     5 3
-0 CMIP6_BB_EOH     $ROOT/CMIP6/v2021-01/$SCENARIO/$SCENARIO_$YYYY.nc4 EOH_bbn    1750-2100/1-12/1/0 C xyL=1:PBL kg/m2/s EOH   75     5 3
-0 CMIP6_BB_MOH     $ROOT/CMIP6/v2021-01/$SCENARIO/$SCENARIO_$YYYY.nc4 MOH_bbn    1750-2100/1-12/1/0 C xyL=1:PBL kg/m2/s MOH   75     5 3
-0 CMIP6_BB_ACET    -                                              -          -                  - -             -   ACET  79/75  5 3
-0 CMIP6_BB_MGLY    $ROOT/CMIP6/v2021-01/$SCENARIO/$SCENARIO_$YYYY.nc4 MGLY_bbn   1750-2100/1-12/1/0 C xyL=1:PBL kg/m2/s MGLY  75     5 3
-0 CMIP6_BB_ACTA    $ROOT/CMIP6/v2021-01/$SCENARIO/$SCENARIO_$YYYY.nc4 ACTA_bbn   1750-2100/1-12/1/0 C xyL=1:PBL kg/m2/s ACTA  75     5 3
-0 CMIP6_BB_HCN     $ROOT/CMIP6/v2021-01/$SCENARIO/$SCENARIO_$YYYY.nc4 HCN_bbn    1750-2100/1-12/1/0 C xyL=1:PBL kg/m2/s HCN   75     5 3
-0 CMIP6_BB_HCOOH   $ROOT/CMIP6/v2021-01/$SCENARIO/$SCENARIO_$YYYY.nc4 HCOOH_bbn  1750-2100/1-12/1/0 C xyL=1:PBL kg/m2/s HCOOH 75     5 3
-0 CMIP6_BB_MEK     $ROOT/CMIP6/v2021-01/$SCENARIO/$SCENARIO_$YYYY.nc4 MEK_bbn    1750-2100/1-12/1/0 C xyL=1:PBL kg/m2/s MEK   75     5 3
-)))BB4MIPS
+(((BB4CMIP6
+# species for aerosol-only simulation
+0 BB4CMIP6_SO2_PBL   $ROOT/BB4CMIP6/v2019-07/BB4CMIP6-Biomass_025x025_$YYYY.nc    SO2     1750-1996/1-12/1/0  R xyL=1:PBL      kg/m2/s   SO2    311         5 2
+0 BB4CMIP6_SO2_FT    $ROOT/BB4CMIP6/v2019-07/BB4CMIP6-Biomass_025x025_$YYYY.nc    SO2     1750-1996/1-12/1/0  R xyL=PBL:5500m  kg/m2/s   SO2    312         5 2
+0 BB4CMIP6_NH3_PBL   $ROOT/BB4CMIP6/v2019-07/BB4CMIP6-Biomass_025x025_$YYYY.nc    NH3     1750-1996/1-12/1/0  R xyL=1:PBL      kg/m2/s   NH3    311         5 2
+0 BB4CMIP6_NH3_FT    $ROOT/BB4CMIP6/v2019-07/BB4CMIP6-Biomass_025x025_$YYYY.nc    NH3     1750-1996/1-12/1/0  R xyL=PBL:5500m  kg/m2/s   NH3    312         5 2
+0 BB4CMIP6_SOAP_PBL  $ROOT/BB4CMIP6/v2019-07/BB4CMIP6-Biomass_025x025_$YYYY.nc    CO      1750-1996/1-12/1/0  R xyL=1:PBL      kg/m2/s   SOAP   281/311  5 2
+0 BB4CMIP6_SOAP_FT   $ROOT/BB4CMIP6/v2019-07/BB4CMIP6-Biomass_025x025_$YYYY.nc    CO      1750-1996/1-12/1/0  R xyL=PBL:5500m  kg/m2/s   SOAP   281/312  5 2
+0 BB4CMIP6_BCPI_PBL  $ROOT/BB4CMIP6/v2019-07/BB4CMIP6-Biomass_025x025_$YYYY.nc    BC      1750-1996/1-12/1/0  R xyL=1:PBL      kg/m2/s   BCPI   70/311      5 2
+0 BB4CMIP6_BCPO_PBL  -                                                                -       -                   - -              -         BCPO   71/311      5 2
+0 BB4CMIP6_BCPI_FT   $ROOT/BB4CMIP6/v2019-07/BB4CMIP6-Biomass_025x025_$YYYY.nc    BC      1750-1996/1-12/1/0  R xyL=PBL:5500m  kg/m2/s   BCPI   70/312      5 2
+0 BB4CMIP6_BCPO_FT   -                                                                -       -                   - -              -         BCPO   71/312      5 2
+0 BB4CMIP6_OCPI_PBL  $ROOT/BB4CMIP6/v2019-07/BB4CMIP6-Biomass_025x025_$YYYY.nc    OC      1750-1996/1-12/1/0  R xyL=1:PBL      kg/m2/s   OCPI   72/311      5 2
+0 BB4CMIP6_OCPO_PBL  -                                                                -       -                   - -              -         OCPO   73/311      5 2
+0 BB4CMIP6_OCPI_FT   $ROOT/BB4CMIP6/v2019-07/BB4CMIP6-Biomass_025x025_$YYYY.nc    OC      1750-1996/1-12/1/0  R xyL=PBL:5500m  kg/m2/s   OCPI   72/312      5 2
+0 BB4CMIP6_OCPO_FT   -                                                                -       -                   - -              -         OCPO   73/312      5 2
+
+# additional species for full chemistry simulations
+0 BB4CMIP6_NO_PBL   $ROOT/BB4CMIP6/v2019-07/BB4CMIP6-Biomass_025x025_$YYYY.nc  NOx            1750-1996/1-12/1/0  R xyL=1:PBL      kg/m2/s   NO     311         5 2
+0 BB4CMIP6_NO_FT    $ROOT/BB4CMIP6/v2019-07/BB4CMIP6-Biomass_025x025_$YYYY.nc  NOx            1750-1996/1-12/1/0  R xyL=PBL:5500m  kg/m2/s   NO     312         5 2
+0 BB4CMIP6_CO_PBL     $ROOT/BB4CMIP6/v2019-07/BB4CMIP6-Biomass_025x025_$YYYY.nc  CO             1750-1996/1-12/1/0  R xyL=1:PBL      kg/m2/s   CO     311         5 2
+0 BB4CMIP6_CO_FT      $ROOT/BB4CMIP6/v2019-07/BB4CMIP6-Biomass_025x025_$YYYY.nc  CO             1750-1996/1-12/1/0  R xyL=PBL:5500m  kg/m2/s   CO     312         5 2
+0 BB4CMIP6_CH2O_PBL   $ROOT/BB4CMIP6/v2019-07/BB4CMIP6-Biomass_025x025_$YYYY.nc  CH2O           1750-1996/1-12/1/0  R xyL=1:PBL      kg/m2/s   CH2O   311         5 2
+0 BB4CMIP6_CH2O_FT    $ROOT/BB4CMIP6/v2019-07/BB4CMIP6-Biomass_025x025_$YYYY.nc  CH2O           1750-1996/1-12/1/0  R xyL=PBL:5500m  kg/m2/s   CH2O   312         5 2
+0 BB4CMIP6_PRPE_PBL   $ROOT/BB4CMIP6/v2019-07/BB4CMIP6-Biomass_025x025_$YYYY.nc  Higher_Alkenes 1750-1996/1-12/1/0  R xyL=1:PBL      kgC/m2/s  PRPE   311         5 2
+0 BB4CMIP6_PRPE_FT    $ROOT/BB4CMIP6/v2019-07/BB4CMIP6-Biomass_025x025_$YYYY.nc  Higher_Alkenes 1750-1996/1-12/1/0  R xyL=PBL:5500m  kgC/m2/s  PRPE   312         5 2
+0 BB4CMIP6_C3H6_PBL   $ROOT/BB4CMIP6/v2019-07/BB4CMIP6-Biomass_025x025_$YYYY.nc  C3H6           1750-1996/1-12/1/0  R xyL=1:PBL      kgC/m2/s  PRPE   311         5 2
+0 BB4CMIP6_C3H6_FT    $ROOT/BB4CMIP6/v2019-07/BB4CMIP6-Biomass_025x025_$YYYY.nc  C3H6           1750-1996/1-12/1/0  R xyL=PBL:5500m  kgC/m2/s  PRPE   312         5 2
+0 BB4CMIP6_ACET_PBL   $ROOT/BB4CMIP6/v2019-07/BB4CMIP6-Biomass_025x025_$YYYY.nc  C3H6O          1750-1996/1-12/1/0  R xyL=1:PBL      kgC/m2/s  ACET   311         5 2
+0 BB4CMIP6_ACET_FT    $ROOT/BB4CMIP6/v2019-07/BB4CMIP6-Biomass_025x025_$YYYY.nc  C3H6O          1750-1996/1-12/1/0  R xyL=PBL:5500m  kgC/m2/s  ACET   312         5 2
+0 BB4CMIP6_ALD2_PBL   $ROOT/BB4CMIP6/v2019-07/BB4CMIP6-Biomass_025x025_$YYYY.nc  C2H4O          1750-1996/1-12/1/0  R xyL=1:PBL      kgC/m2/s  ALD2   311         5 2
+0 BB4CMIP6_ALD2_FT    $ROOT/BB4CMIP6/v2019-07/BB4CMIP6-Biomass_025x025_$YYYY.nc  C2H4O          1750-1996/1-12/1/0  R xyL=PBL:5500m  kgC/m2/s  ALD2   312         5 2
+0 BB4CMIP6_ALK4_PBL   $ROOT/BB4CMIP6/v2019-07/BB4CMIP6-Biomass_025x025_$YYYY.nc  Higher_Alkanes 1750-1996/1-12/1/0  R xyL=1:PBL      kgC/m2/s  ALK4   311         5 2
+0 BB4CMIP6_ALK4_FT    $ROOT/BB4CMIP6/v2019-07/BB4CMIP6-Biomass_025x025_$YYYY.nc  Higher_Alkanes 1750-1996/1-12/1/0  R xyL=PBL:5500m  kgC/m2/s  ALK4   312         5 2
+0 BB4CMIP6_C2H4_PBL   $ROOT/BB4CMIP6/v2019-07/BB4CMIP6-Biomass_025x025_$YYYY.nc  C2H4           1750-1996/1-12/1/0  R xyL=1:PBL      kgC/m2/s  C2H4   311         5 2
+0 BB4CMIP6_C2H4_FT    $ROOT/BB4CMIP6/v2019-07/BB4CMIP6-Biomass_025x025_$YYYY.nc  C2H4           1750-1996/1-12/1/0  R xyL=PBL:5500m  kgC/m2/s  C2H    312         5 2
+0 BB4CMIP6_C2H6_PBL   $ROOT/BB4CMIP6/v2019-07/BB4CMIP6-Biomass_025x025_$YYYY.nc  C2H6           1750-1996/1-12/1/0  R xyL=1:PBL      kgC/m2/s  C2H    311         5 2
+0 BB4CMIP6_C2H6_FT    $ROOT/BB4CMIP6/v2019-07/BB4CMIP6-Biomass_025x025_$YYYY.nc  C2H6           1750-1996/1-12/1/0  R xyL=PBL:5500m  kgC/m2/s  C2H6   312         5 2
+0 BB4CMIP6_C3H8_PBL   $ROOT/BB4CMIP6/v2019-07/BB4CMIP6-Biomass_025x025_$YYYY.nc  C3H8           1750-1996/1-12/1/0  R xyL=1:PBL      kgC/m2/s  C3H8   311         5 2
+0 BB4CMIP6_C3H8_FT    $ROOT/BB4CMIP6/v2019-07/BB4CMIP6-Biomass_025x025_$YYYY.nc  C3H8           1750-1996/1-12/1/0  R xyL=PBL:5500m  kgC/m2/s  C3H8   312         5 2
+0 BB4CMIP6_BENZ_PBL   $ROOT/BB4CMIP6/v2019-07/BB4CMIP6-Biomass_025x025_$YYYY.nc  C6H6           1750-1996/1-12/1/0  R xyL=1:PBL      kgC/m2/s  BENZ   311         5 2
+0 BB4CMIP6_BENZ_FT    $ROOT/BB4CMIP6/v2019-07/BB4CMIP6-Biomass_025x025_$YYYY.nc  C6H6           1750-1996/1-12/1/0  R xyL=PBL:5500m  kgC/m2/s  BENZ   312         5 2
+0 BB4CMIP6_TOLU_PBL   $ROOT/BB4CMIP6/v2019-07/BB4CMIP6-Biomass_025x025_$YYYY.nc  C7H8           1750-1996/1-12/1/0  R xyL=1:PBL      kgC/m2/s  TOLU   311         5 2
+0 BB4CMIP6_TOLU_FT    $ROOT/BB4CMIP6/v2019-07/BB4CMIP6-Biomass_025x025_$YYYY.nc  C7H8           1750-1996/1-12/1/0  R xyL=PBL:5500m  kgC/m2/s  TOLU   312         5 2
+0 BB4CMIP6_XYLE_PBL   $ROOT/BB4CMIP6/v2019-07/BB4CMIP6-Biomass_025x025_$YYYY.nc  C8H10          1750-1996/1-12/1/0  R xyL=1:PBL      kgC/m2/s  XYLE   311         5 2
+0 BB4CMIP6_XYLE_FT    $ROOT/BB4CMIP6/v2019-07/BB4CMIP6-Biomass_025x025_$YYYY.nc  C8H10          1750-1996/1-12/1/0  R xyL=PBL:5500m  kgC/m2/s  XYLE   312         5 2
+0 BB4CMIP6_MEK_PBL    $ROOT/BB4CMIP6/v2019-07/BB4CMIP6-Biomass_025x025_$YYYY.nc  MEK            1750-1996/1-12/1/0  R xyL=1:PBL      kgC/m2/s  MEK    311         5 2
+0 BB4CMIP6_MEK_FT     $ROOT/BB4CMIP6/v2019-07/BB4CMIP6-Biomass_025x025_$YYYY.nc  MEK            1750-1996/1-12/1/0  R xyL=PBL:5500m  kgC/m2/s  MEK    312         5 2
+0 BB4CMIP6_GLYC_PBL   $ROOT/BB4CMIP6/v2019-07/BB4CMIP6-Biomass_025x025_$YYYY.nc  HOCH2CHO       1750-1996/1-12/1/0  R xyL=1:PBL      kg/m2/s   GLYC   311         5 2
+0 BB4CMIP6_GLYC_FT    $ROOT/BB4CMIP6/v2019-07/BB4CMIP6-Biomass_025x025_$YYYY.nc  HOCH2CHO       1750-1996/1-12/1/0  R xyL=PBL:5500m  kg/m2/s   GLYC   312         5 2
+)))BB4CMIP6
 
 #==============================================================================
 # --- Anthropogenic Fugitive, Combustion and Industrial Dust ---
@@ -3129,7 +3145,8 @@ Warnings:                    1
 # --- GEOS-Chem restart file ---
 #==============================================================================
 (((GC_RESTART
-* SPC_           ./GEOSChem.Restart.$YYYY$MM$DD_$HH$MNz.nc4 SpeciesRst_?ALL?    $YYYY/$MM/$DD/$HH EFYO xyz 1 * - 1 1
+#* SPC_           ./GEOSChem.Restart.$YYYY$MM$DD_$HH$MNz.nc4 SpeciesRst_?ALL?    $YYYY/$MM/$DD/$HH EFYO xyz 1 * - 1 1
+* SPC_           ./GEOSChem.Restart.$YYYY$MM$DD_$HH$MNz.nc4 SpeciesRst_?ALL?    $YYYY/$MM/$DD/$HH CYS xyz 1 * - 1 1
 * TMPU1          ./GEOSChem.Restart.$YYYY$MM$DD_$HH$MNz.nc4 Met_TMPU1           $YYYY/$MM/$DD/$HH EY   xyz 1 * - 1 1
 * SPHU1          ./GEOSChem.Restart.$YYYY$MM$DD_$HH$MNz.nc4 Met_SPHU1           $YYYY/$MM/$DD/$HH EY   xyz 1 * - 1 1
 * PS1DRY         ./GEOSChem.Restart.$YYYY$MM$DD_$HH$MNz.nc4 Met_PS1DRY          $YYYY/$MM/$DD/$HH EY   xy  1 * - 1 1
@@ -3937,8 +3954,8 @@ Warnings:                    1
 # From Kim, P.S., et. al. 2015 "Sources, seasonality, and trends
 # of southeast US aerosol: ..."
 #   AVOCs and BBVOCs are emitted in proportion to CO, with an emission ratio of
-#     0.069 g AVOC (g CO)−1 (Hayes et al., 2015) and
-#     0.013 g BBVOC (g CO)−1 (Cubison et al., 2011).
+#     0.069 g AVOC (g CO)鈭? (Hayes et al., 2015) and
+#     0.013 g BBVOC (g CO)鈭? (Cubison et al., 2011).
 #   They are both oxidized by OH in the model ... to generate SOA.
 280 COtoSOAP_anth 0.069 - - - xy 1 1
 281 COtoSOAP_burn 0.013 - - - xy 1 1
@@ -4101,6 +4118,16 @@ Warnings:                    1
 311 QFED_PBL_FRAC 0.65 - - - xy 1 1
 312 QFED_FT_FRAC  0.35 - - - xy 1 1
 )))QFED2
+
+#==============================================================================
+# --- BB4CMIP6 vertical partitioning ---
+# Following Fischer et al. (2014) and Travis et al. (2016), emit 35% of QFED
+# emissions above the PBL.
+#==============================================================================
+(((BB4CMIP6
+311 QFED_PBL_FRAC 0.65 - - - xy 1 1
+312 QFED_FT_FRAC  0.35 - - - xy 1 1
+)))BB4CMIP6
 
 #==============================================================================
 # --- CEDS vertical partitioning ---
